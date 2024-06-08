@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "BlogEntry";
+    Model BloggerCMS.Domain.Models.BlogEntry
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+    <p>Created by <span>@Model.Author</span>, <i>@Model.DatePosted</i></p>
+    <p>@Model.Body</p> 
+</div>
+
