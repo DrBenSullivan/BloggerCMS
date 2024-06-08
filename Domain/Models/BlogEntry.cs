@@ -8,7 +8,7 @@
         public string Title { get; set; }
         public string Body { get; set; }
 
-        BlogEntry(int id, string author, DateTime datePosted, string title, string body)
+        public BlogEntry(int id, string author, DateTime datePosted, string title, string body)
         {
             Id = id;
             Author = author;

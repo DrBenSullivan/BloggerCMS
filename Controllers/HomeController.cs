@@ -25,9 +25,9 @@ namespace BloggerCMS.Controllers
             return View();
         }
 
-        public IActionResult BlogEntry(int id)
+        public IActionResult Blog(int id)
         {
-            BlogEntry model = _blogEntryRepository.getEntry(id);
+            var model = new BlogEntry(1, "Prof. Author", DateTime.Now, "A blog entry", "Welcome to my blog");
             return View(model);
         }
 
