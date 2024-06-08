@@ -8,6 +8,8 @@
         public string Title { get; set; }
         public string Body { get; set; }
 
+        #region Constructors
+
         public BlogEntry(int id, string author, DateTime datePosted, string title, string body)
         {
             Id = id;
@@ -16,5 +18,8 @@
             Title = title;
             Body = body;
         }
+
+        #endregion Constructors
+
     }
 }
