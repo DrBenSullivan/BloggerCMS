@@ -2,8 +2,11 @@
 
 namespace BloggerCMS.Domain.Repositories.Interfaces
 {
-    public interface IBlogEntryRepository
+    public interface IBlogRepository
     {
-        BlogEntry getEntry(int id);
+        BlogEntry GetEntry(int id);
     }
 }
+
+
+

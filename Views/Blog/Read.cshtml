@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Blog";
+    int currentEntryId = Model.Id;
+    int totalEntries = BlogRepository.GetCount();
 }
 
 <div class="text-center">
@@ -7,4 +9,24 @@
     <p>Created by <span>@Model.Author</span>, <i>@Model.DatePosted</i></p>
     <p>@Model.Body</p> 
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+        <li class="page-item @(currentEntryId <= 0 ? "disabled" : "")">
+            <a class="page-link" href="@(Url.Action("Read", new { id = currentEntryId - 1 }))">Previous</a>
+        </li>
+
+        @for (int i = 1; i <= totalEntries; i++)
+        {
+            <li class="page-item @(currentEntryId == i-1 ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Read", new { id = i-1 })">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(currentEntryId >= totalEntries - 1? "disabled" : "")">
+            <a class="page-link" href="@(Url.Action("Read", new { id = currentEntryId + 1}))">Next</a>
+        </li>
+    </ul>
+</nav>
 

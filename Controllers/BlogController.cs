@@ -1,4 +1,5 @@
 ﻿using BloggerCMS.Domain.Models;
+using BloggerCMS.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggerCMS.Controllers
@@ -7,8 +8,9 @@ namespace BloggerCMS.Controllers
     {
         public IActionResult Read(int id)
         {
-            var model = new BlogEntry(1, "Prof. Author", DateTime.Now, "A blog entry", "Welcome to my blog");
-            return View(model);
+            var repository = new BlogRepository();
+            var entry = repository.GetEntry(id);
+            return View(entry);
         }
     }
 }

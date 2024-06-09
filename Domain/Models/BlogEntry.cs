@@ -1,25 +1,18 @@
-﻿namespace BloggerCMS.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BloggerCMS.Domain.Models
 {
     public class BlogEntry
     {
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Author { get; set; }
+        [Required]
         public DateTime DatePosted { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Body { get; set; }
-
-        #region Constructors
-
-        public BlogEntry(int id, string author, DateTime datePosted, string title, string body)
-        {
-            Id = id;
-            Author = author;
-            DatePosted = datePosted;
-            Title = title;
-            Body = body;
-        }
-
-        #endregion Constructors
-
     }
 }
