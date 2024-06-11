@@ -1,27 +1,22 @@
-var builder = WebApplication.CreateBuilder(args);
+using BloggerCMS;
+using BloggerCMS.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+var host = CreateHostBuilder(args).Build();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+using (var scope = host.Services.CreateScope())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+    SeedData.Initialize(services);
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+host.Run();
 
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
+static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });

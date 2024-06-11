@@ -4,15 +4,13 @@ namespace BloggerCMS.Domain.Models
 {
     public class BlogEntry
     {
-        [Required]
         public int Id { get; set; }
-        [Required]
-        public string Author { get; set; }
-        [Required]
-        public DateTime DatePosted { get; set; }
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Body { get; set; }
+        public string Title { get; set; } = null!;
+        public string Body { get; set; } = null!;
+        public Blog Blog { get; set; } = null!;
+        public DateTime DatePosted { get; set; } = DateTime.Now;
+
+        // Foreign keys
+        public int BlogId { get; set; }
     }
 }

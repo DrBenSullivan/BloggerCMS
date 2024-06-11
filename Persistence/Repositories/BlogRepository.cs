@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Nodes;
 using BloggerCMS.Domain.Models;
 using BloggerCMS.Domain.Repositories.Interfaces;
 
@@ -33,15 +32,15 @@ namespace BloggerCMS.Persistence.Repositories
 
 		public BlogEntry GetEntry(int id)
         {
-			var jsonEntries = JsonSerializer.Deserialize<IEnumerable<BlogEntry>>(_testSeedJSON)!;
-			var entry = jsonEntries?.FirstOrDefault(e => e.Id == id);
+            var jsonEntries = JsonSerializer.Deserialize<IEnumerable<BlogEntry>>(_testSeedJSON)!;
+            var entry = jsonEntries?.FirstOrDefault(e => e.Id == id);
 
-			if (entry == null)
-			{
-				throw new KeyNotFoundException($"Blog entry with ID {id} not found.");
-			}
+            if (entry != null)
+            {
+                return entry;
+            }
 
-			return entry;
-		}        
+            throw new KeyNotFoundException($"Blog entry with ID {id} not found.");
+        }
     }
 }
