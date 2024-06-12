@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "BloggerCMS - Entries";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+    <i>Created @Model.DatePosted</i>
+    <p>@Model.Body</p> 
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+        <li class="page-item @(Model.Id <= 1 ? "disabled" : "")">
+            <a class="page-link" href="@(Url.Action("Entries", new { id = Model.Id }))">Previous</a>
+        </li>
+
+        @for (int i = Model.Id; i <= 10; i++)
+        {
+            <li class="page-item @(i == Model.Id ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Entries", new { id = i })">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(Model.Id > 10 ? "disabled" : "")">
+            <a class="page-link" href="@(Url.Action("Entries", new { id = 11 }))">Next</a>
+        </li>
+    </ul>
+</nav>
+

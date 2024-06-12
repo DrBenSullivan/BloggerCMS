@@ -9,6 +9,8 @@ using (var scope = host.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     context.Database.Migrate();
+
+    // Seed Db if first time application initialised.
     SeedData.Initialize(services);
 }
 

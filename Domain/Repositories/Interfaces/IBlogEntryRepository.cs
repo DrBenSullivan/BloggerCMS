@@ -2,9 +2,9 @@
 
 namespace BloggerCMS.Domain.Repositories.Interfaces
 {
-    public interface IBlogRepository
+    public interface IBlogEntryRepository
     {
-        BlogEntry GetEntry(int id);
+        Task<BlogEntry> GetByIdAsync(int id);
     }
 }
 
