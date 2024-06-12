@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloggerCMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240611102344_InitalCreation")]
-    partial class InitalCreation
+    [Migration("20240612112437_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

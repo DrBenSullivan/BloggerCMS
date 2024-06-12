@@ -1,4 +1,5 @@
 ﻿using BloggerCMS.Domain.Models;
+using BloggerCMS.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloggerCMS.Persistence.Contexts
@@ -23,7 +24,13 @@ namespace BloggerCMS.Persistence.Contexts
                 .HasOne(blog => blog.Author)
                 .WithMany(author => author.Blogs)
                 .HasForeignKey(blog => blog.AuthorId) 
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Account>()
+                .HasMany(account => account.Blogs)
+                .WithOne(blog => blog.Author)
+                .HasForeignKey(blog => blog.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

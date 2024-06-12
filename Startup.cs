@@ -1,6 +1,8 @@
 ﻿using BloggerCMS.Domain.Repositories.Interfaces;
+using BloggerCMS.Domain.Services.Interfaces;
 using BloggerCMS.Persistence.Contexts;
 using BloggerCMS.Persistence.Repositories;
+using BloggerCMS.Services;
 using Microsoft.EntityFrameworkCore;
 
 public class Startup
@@ -22,6 +24,8 @@ public class Startup
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
 
         services.AddScoped<IBlogEntryRepository, BlogEntryRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IAccountService, AccountService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

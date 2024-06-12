@@ -4,9 +4,9 @@ using BloggerCMS.Persistence.Contexts;
 
 namespace BloggerCMS
 {
-    public static class SeedData
+    public static class DatabaseSeeder
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void SeedData(IServiceProvider serviceProvider)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
@@ -39,6 +39,7 @@ namespace BloggerCMS
                 };
                 context.BlogEntries.Add(blogEntry);
                 context.SaveChanges();
+                
             }
         }
     }

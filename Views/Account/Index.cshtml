@@ -1,0 +1,35 @@
+﻿@{
+	ViewData["Title"] = "BloggerCMS - Bloggers";
+}
+
+<div class="text-center">
+    <h1 class="display-4">List of Bloggers</h1>
+
+    <ul>
+        @foreach (var account in @Model)
+        {
+            <li>@account.Username 
+
+                <ul>
+
+                    @foreach(var blog in account.Blogs)
+                    {
+
+                        <li>@blog.Title
+
+                            <ul>
+
+                                @foreach (var entry in blog.BlogEntries)
+                                {
+                                    <li>@entry.Title</li>
+                                }
+
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+
+</div>

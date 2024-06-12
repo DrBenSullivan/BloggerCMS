@@ -11,7 +11,7 @@ using (var scope = host.Services.CreateScope())
     context.Database.Migrate();
 
     // Seed Db if first time application initialised.
-    SeedData.Initialize(services);
+    DatabaseSeeder.SeedData(services);
 }
 
 host.Run();
