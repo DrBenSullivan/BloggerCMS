@@ -1,17 +1,19 @@
-﻿using BloggerCMS.Domain.Services.Interfaces;
+﻿using BloggerCMS.Domain.Models;
+using BloggerCMS.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace BloggerCMS.Controllers
 {
     public class AccountController : Controller
     {
-        #region Private Properties
         private readonly IAccountService _accountService;
-        #endregion
 
-        #region Constructor
-        public AccountController(IAccountService account) => _accountService = account;
-        #endregion
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
 
         public async Task<IActionResult> Index()
         {
@@ -32,6 +34,38 @@ namespace BloggerCMS.Controllers
                 ViewBag.ErrorMessage = "An error occurred while retrieving accounts.";
                 return View("Error");
             }
+        }
+
+        public IActionResult New()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNew(Account newAccount)
+        {
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("ModelState is invalid"); 
+                // If ModelState is not valid, return to the New view with the newAccount object
+                return View("New", newAccount);
+            }
+            
+            try
+            {
+                // Add the new account
+                var account = await _accountService.AddAccountAsync(newAccount);
+
+                // Redirect to the Index action
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Handle specific exceptions if needed
+                ViewBag.ErrorMessage = $"Failed to add account: {ex.Message}";
+                return View("Error");
+            }
+
         }
     }
 }

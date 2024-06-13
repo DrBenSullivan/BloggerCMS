@@ -17,7 +17,7 @@ namespace BloggerCMS
                     return;
                 }
 
-                var account = new Account { Username = "Prof. Author" };
+                var account = new Account("Prof. Author");
                 context.Accounts.Add(account);
                 context.SaveChanges();
 

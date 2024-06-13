@@ -1,0 +1,26 @@
+﻿@model BloggerCMS.Domain.Models.Account
+
+@{
+    ViewData["Title"] = "New Account";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create New Account</h1>
+
+    @using (Html.BeginForm("AddNew", "Account", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
