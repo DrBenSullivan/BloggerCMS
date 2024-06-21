@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using BloggerCMS.Domain.Models;
-using BloggerCMS.Domain.Repositories.Interfaces;
+using AutoMapper;
+using BloggerCMS.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggerCMS.Controllers
@@ -8,10 +8,12 @@ namespace BloggerCMS.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper)
         {
             _logger = logger;
+            _mapper = mapper;   
         }
 
         public IActionResult Index()

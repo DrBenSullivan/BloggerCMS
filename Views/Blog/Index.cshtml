@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Blogs";
+}
+<h1>All Blogs</h1>
+
+<div class="offset-1">
+@foreach (var author in Model)
+{
+    <div class="offset-1">
+        <h4>@author.Key.Username</h4>
+        <dl>
+            @foreach (var blog in author.Value)
+            {
+                <dt>@blog.Title</dt>
+                <dd class="fst-italic">@blog.Description</dd>
+            }
+        </dl>
+    </div>
+}
+</div>

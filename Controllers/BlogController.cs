@@ -1,37 +1,53 @@
-﻿using BloggerCMS.Domain.Repositories.Interfaces;
-using BloggerCMS.Persistence.Repositories;
+﻿using BloggerCMS.Domain.Models;
+using BloggerCMS.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using BloggerCMS.Domain.ViewModels;
+using AutoMapper;
 
 namespace BloggerCMS.Controllers
 {
     public class BlogController : Controller
     {
         #region Private Properties
-        private readonly IBlogEntryRepository _blogEntryRepository;
+        private readonly IBlogService _blogService;
+        private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public BlogController(IBlogEntryRepository blogEntryRepository)
+        public BlogController(IBlogService blogService, IMapper mapper)
         {
-            _blogEntryRepository = blogEntryRepository;
+            _blogService = blogService;
+            _mapper = mapper;
         }
         #endregion
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            Dictionary<Account, List<Blog>> accountBlogsDictionary = await _blogService.FetchBlogsAsync();
+            return View(accountBlogsDictionary);
         }
 
-        public async Task<IActionResult> Entries(int id = 1)
+        public async Task<IActionResult> New()
         {
-            var blogEntry = await _blogEntryRepository.GetByIdAsync(id);
+            var accounts = await _blogService.FetchAccountsAsync();
+            var model = new NewBlogViewModel(accounts);
+            return View(model);
+        }
 
-            if (blogEntry != null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddNew(NewBlogViewModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                return View(blogEntry);
+                return RedirectToAction("New");
             }
-            
-            return Index();
+
+            var author = model.Accounts.FirstOrDefault(a => a.Id == model.AuthorId);
+            var newBlog = _mapper.Map<Blog>(model);
+            var response = await _blogService.SaveBlogAsync(newBlog);
+            Console.WriteLine($"New blog {response.AuthorId}, {response.Title} {response.Description}");
+            return RedirectToRoute("Entry", "New",
         }
     }
 }

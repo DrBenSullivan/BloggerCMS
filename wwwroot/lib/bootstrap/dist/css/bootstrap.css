@@ -192,6 +192,7 @@ dt {
 dd {
   margin-bottom: 0.5rem;
   margin-left: 0;
+  font-style: italic;
 }
 
 blockquote {

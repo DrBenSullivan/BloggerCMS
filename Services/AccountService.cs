@@ -16,16 +16,18 @@ namespace BloggerCMS.Services
         public AccountService(IAccountRepository accountRepository) => _accountRepository = accountRepository;
         #endregion
 
-        public async Task<IEnumerable<Account>> ListAccountsAsync()
+        public async Task<IEnumerable<Account>> FetchAccountsAsync()
         {
             return await _accountRepository
                 .GetAllAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task<Account> AddAccountAsync(Account newAccount)
+        public async Task<Account> SaveAccountAsync(Account newAccount)
         {
-            await _accountRepository.AddAsync(newAccount);
+            await _accountRepository
+                .AddAsync(newAccount)
+                .ConfigureAwait(false);
             return newAccount;
         }
     }

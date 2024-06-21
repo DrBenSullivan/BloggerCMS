@@ -1,4 +1,4 @@
-namespace BloggerCMS.Domain.Models
+namespace BloggerCMS.Domain.ViewModels
 {
     public class ErrorViewModel
     {

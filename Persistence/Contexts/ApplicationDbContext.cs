@@ -9,7 +9,6 @@ namespace BloggerCMS.Persistence.Contexts
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<BlogEntry> BlogEntries { get; set; }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
