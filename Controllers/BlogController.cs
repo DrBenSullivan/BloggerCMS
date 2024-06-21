@@ -47,7 +47,7 @@ namespace BloggerCMS.Controllers
             var newBlog = _mapper.Map<Blog>(model);
             var response = await _blogService.SaveBlogAsync(newBlog);
             Console.WriteLine($"New blog {response.AuthorId}, {response.Title} {response.Description}");
-            return RedirectToRoute("Entry", "New",
+            return RedirectToAction("New", "Entry");
         }
     }
 }
