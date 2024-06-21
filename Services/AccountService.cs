@@ -23,6 +23,13 @@ namespace BloggerCMS.Services
                 .ConfigureAwait(false);
         }
 
+        public async Task<Account> FetchAccountByIdAsync(int id)
+        {
+            return await _accountRepository
+                .GetByIdAsync(id)
+                .ConfigureAwait(false);
+        }
+
         public async Task<Account> SaveAccountAsync(Account newAccount)
         {
             await _accountRepository

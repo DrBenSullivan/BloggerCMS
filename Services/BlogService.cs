@@ -31,16 +31,9 @@ namespace BloggerCMS.Services
 
         public async Task<Blog> FetchBlogByIdAsync(int id)
         {
-            var blogExists = await _blogRepository
-                    .FindByIdAsync(id)
+            return await _blogRepository
+                    .GetByIdAsync(id)
                     .ConfigureAwait(false);
-
-            if (blogExists != null)
-            {
-                return blogExists;
-            }
-
-            throw new KeyNotFoundException($"Blog with id {id} not found");
         }
 
         public async Task<Blog> SaveBlogAsync(Blog blog)

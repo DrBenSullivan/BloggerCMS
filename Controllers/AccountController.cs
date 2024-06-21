@@ -37,6 +37,20 @@ namespace BloggerCMS.Controllers
             }
         }
 
+        public async Task<IActionResult> View(int id)
+        {
+            try
+            {
+                var account = await _accountService.FetchAccountByIdAsync(id);
+                return View(account);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
+        }
+
         public IActionResult New()
         {
             return View();

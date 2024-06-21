@@ -27,6 +27,20 @@ namespace BloggerCMS.Controllers
             return View(accountBlogsDictionary);
         }
 
+        public async Task<IActionResult> View(int id)
+        {
+            try
+            {
+                var blog = await _blogService.FetchBlogByIdAsync(id);
+                return View(blog);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
+        }
+
         public async Task<IActionResult> New()
         {
             var accounts = await _blogService.FetchAccountsAsync();

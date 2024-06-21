@@ -1,20 +1,33 @@
 ﻿@{
     ViewData["Title"] = "Blogs";
 }
-<h1>All Blogs</h1>
 
-<div class="offset-1">
-@foreach (var author in Model)
-{
-    <div class="offset-1">
-        <h4>@author.Key.Username</h4>
-        <dl>
-            @foreach (var blog in author.Value)
-            {
-                <dt>@blog.Title</dt>
-                <dd class="fst-italic">@blog.Description</dd>
-            }
-        </dl>
-    </div>
-}
+<div class="text-center">
+    <h1 class="display-4">All Blogs</h1>
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Account</th>
+            <th scope="col">Blog</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kvp in Model)
+        {
+            <tr>
+                <th scope="row" colspan="2">@kvp.Key.Username</th>
+            </tr>
+            @foreach (var blog in kvp.Value)
+            {
+                <tr>
+                    <td />
+                    <td>
+                        @blog.Title.ToString()
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

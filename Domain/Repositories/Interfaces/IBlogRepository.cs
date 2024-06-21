@@ -6,7 +6,7 @@ namespace BloggerCMS.Domain.Repositories.Interfaces
     {
         Task<List<Account>> GetAccountsAsync();
         Task<Dictionary<Account, List<Blog>>> GetBlogsAsync();
-        Task<Blog?> FindByIdAsync(int id);   
+        Task<Blog> GetByIdAsync(int id);   
         Task AddAsync(Blog blog);
     }
 }

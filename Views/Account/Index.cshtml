@@ -1,35 +1,25 @@
 ﻿@{
-	ViewData["Title"] = "Bloggers";
+	ViewData["Title"] = "Accounts";
 }
 
 <div class="text-center">
-    <h1 class="display-4">List of Bloggers</h1>
-
-    <ul>
-        @foreach (var account in @Model)
-        {
-            <li>@account.Username 
-
-                <ul>
-
-                    @foreach(var blog in account.Blogs)
-                    {
-
-                        <li>@blog.Title
-
-                            <ul>
-
-                                @foreach (var entry in blog.BlogEntries)
-                                {
-                                    <li>@entry.Title</li>
-                                }
-
-                            </ul>
-                        </li>
-                    }
-                </ul>
-            </li>
-        }
-    </ul>
-
+    <h1 class="display-4">All Accounts</h1>
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <th scope="row">@account.Id.ToString()</th>
+                <td><a href="/Account/View/@account.Id">@account.Username.ToString()</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

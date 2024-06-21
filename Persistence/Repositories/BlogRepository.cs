@@ -30,12 +30,20 @@ namespace BloggerCMS.Persistence.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task<Blog?> FindByIdAsync(int id)
+        public async Task<Blog> GetByIdAsync(int id)
         {
-            return await _context.Blogs
-                .Where(a => id == a.Id)
-                .FirstOrDefaultAsync()
+            var blog = await _context.Blogs
+                .Include(b => b.BlogEntries)
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(b => b.Id == id)
                 .ConfigureAwait(false);
+
+            if (blog != null)
+            {
+                return blog;
+            }
+
+            throw new KeyNotFoundException($"Blog with id {id} not found");
         }
 
         public async Task AddAsync(Blog blog)

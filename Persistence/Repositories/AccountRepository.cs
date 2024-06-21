@@ -24,6 +24,21 @@ namespace BloggerCMS.Persistence.Repositories
                 .ConfigureAwait(false);
         }
 
+        public async Task<Account> GetByIdAsync(int id)
+        {
+            var result = await _context.Accounts
+                .Include(a => a.Blogs)
+                .FirstOrDefaultAsync(a => a.Id == id)
+                .ConfigureAwait(false);
+
+            if (result != null)
+            {
+                return result;
+            }
+            throw new KeyNotFoundException($"Account with Id {id} not found.");
+
+        }
+
         public async Task AddAsync(Account account)
         {
             Console.WriteLine("Account repository attempting to add newAccount");

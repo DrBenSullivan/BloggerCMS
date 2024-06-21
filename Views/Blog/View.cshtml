@@ -1,0 +1,48 @@
+﻿@model BloggerCMS.Domain.Models.Blog
+
+@{
+    ViewData["Title"] = "View Blog";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Title.ToString()</h1>
+    <i>by @Model.Author.Username.ToString()</i>
+</div>
+
+<hr />
+
+<div>
+    @if (Model.BlogEntries.Count == 0)
+    {
+        <i>This blog is empty!</i>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date Posted</th>
+                </tr> 
+            </thead>
+            <tbody>
+                @foreach (var entry in Model.BlogEntries)
+                {
+                    <tr>
+                        <th scope="row">
+                            @entry.Title.ToString()
+                        </th>
+                        <td>
+                            @entry.DatePosted.ToString()
+                        </td>
+                    </tr>
+                }
+            </tbody>
+         </table>       
+    }
+    <br />
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,51 @@
+﻿@model BloggerCMS.Domain.Models.Account
+
+@{
+    ViewData["Title"] = "View";
+}
+<h1>Account View</h1>
+<hr />
+
+<div>
+    <h3>@Model.Username</h3>
+    <br />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+    </dl>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Blog Title</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blog in Model.Blogs)
+            {
+                <tr>
+                    <th scope="row"><a href="/Blog/View/@blog.Id">@blog.Title.ToString()</a></th>
+                    <td>@blog.Description.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
