@@ -1,0 +1,29 @@
+﻿@model BloggerCMS.Domain.Models.BlogEntry
+
+@{
+    ViewData["Title"] = "View Entry";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.Title.ToString()</h1>
+    <p>from <a href="/Blog/View/@Model.Blog.Id">@Model.Blog.Title</a> by <a href="/Account/View/@Model.Blog.AuthorId">@Model.Blog.Author.Username.ToString()</a></p>
+    <i>Posted @Model.DatePosted.ToString()</i>
+</div>
+
+<hr />
+
+<div>
+    @if (Model.Body.Length == 0)
+    {
+        <i>This blog is empty!</i>
+    }
+    else
+    {
+        <p>@Model.Body.ToString()</p>
+    }
+    <br />
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

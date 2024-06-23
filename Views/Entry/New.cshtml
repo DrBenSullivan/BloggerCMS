@@ -1,9 +1,76 @@
-﻿
+﻿@model NewEntryViewModel
+
 @{
-    ViewData["Title"] = "NewEntry";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "New Entry";
 }
 
-<h1>NewEntry</h1>
-<p>Write your blog entry below....</p>
+<div class="text-center">
+    <h1 class="display-4">Create New Entry</h1>
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="NewEntryFormModel.AuthorId">Author</label>
+            <select id="authorSelect"
+                    asp-for="NewEntryFormModel.AuthorId"
+                    asp-items="@(new SelectList(
+                        Model.AccountsDTOList.Select( a => new SelectListItem
+                            {
+                                Value = a.Id.ToString(),
+                                Text = a.Username.ToString()
+                            }), "Value", "Text"))"
+                    class="form-control">
+                <option value="">-- Select Author --</option>
+            </select>
+            <span asp-validation-for="NewEntryFormModel.AuthorId" class="text-danger"></span>
+
+            <label asp-for="NewEntryFormModel.BlogId">Blog</label>
+            <select id="blogSelect" asp-for="NewEntryFormModel.BlogId" class="form-control">
+                <option value="">-- Select Blog --</option>
+            </select>
+            <span asp-validation-for="NewEntryFormModel.BlogId" class="text-danger"></span>
+
+            <label asp-for="NewEntryFormModel.Title"></label>
+            <input asp-for="NewEntryFormModel.Title" class="form-control" />
+            <span asp-validation-for="NewEntryFormModel.Title" class="text-danger"></span>
+
+            <label asp-for="NewEntryFormModel.Description"></label>
+            <input asp-for="NewEntryFormModel.Description" class="form-control" />
+            <span asp-validation-for="NewEntryFormModel.Description" class="text-danger"></span>
+
+            <label asp-for="NewEntryFormModel.Body"></label>
+            <input type="text" asp-for="NewEntryFormModel.Body" class="form-control" />
+            <span asp-validation-for="NewEntryFormModel.Body" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            $(document).ready(function () {
+                var accountBlogsDictionary = @Html.Raw(Json.Serialize(Model.AccountIdBlogDictionary));
+
+                $('#authorSelect').change(function () {
+                    var authorId = $(this).val();
+                    console.log(authorId);
+                    var blogs = accountBlogsDictionary[authorId] || [];
+                    console.log(blogs);
+                    var blogSelect = $('#blogSelect');
+                    blogSelect.empty();
+                    blogSelect.append('<option value="">-- Select Blog --</option>');
+
+                    $.each(blogs, function (index, element) {
+                        console.log(index, element);
+                        blogSelect.append($('<option>').attr('value', element.id).text(element.title));
+                    });
+                });
+            });
+        </script>
+
+    }
+}

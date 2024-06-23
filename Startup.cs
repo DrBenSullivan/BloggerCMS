@@ -23,11 +23,12 @@ public class Startup
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
 
-        services.AddScoped<IBlogEntryRepository, BlogEntryRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IBlogRepository, BlogRepository>();
         services.AddScoped<IBlogService, BlogService>();
+        services.AddScoped<IEntryRepository, EntryRepository>();
+        services.AddScoped<IEntryService, EntryService>();
 
         services.AddAutoMapper(typeof(Startup));
     }

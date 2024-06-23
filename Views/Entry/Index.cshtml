@@ -1,5 +1,29 @@
 ﻿@{
-
+    ViewData["Title"] = "Entries";
 }
 
-<h1>Welcome to Entries....</h1>
+<div class="text-center">
+    <h1 class="display-4">Newest Entries</h1>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Entry</th>
+            <th scope="col">Author</th>
+            <th scope="col">Blog</th>
+            <th scope="col">Date Posted</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td><a href="/Entry/View/@post.Id">@post.Title.ToString()</a></td>
+                <td><a href="/Account/View/@post.Blog.AuthorId">@post.Blog.Author.Username.ToString()</a></td>
+                <td><a href="/Blog/View/@post.Blog.Id">@post.Blog.Title.ToString()</a></td>
+                <td>@post.DatePosted.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -8,14 +8,14 @@ namespace BloggerCMS.Mapping
     {
         public ViewModelToModelProfile()
         {
-            #region Blog ViewModel Mapping Transform
             CreateMap<NewBlogViewModel, Blog>()
                 .ForMember(
                     dest => dest.Author,
                     opt => opt.MapFrom(
                         src => src.Accounts.FirstOrDefault(
                             a => a.Id == src.AuthorId)));
-            #endregion
+
+            CreateMap<NewEntryViewModel, BlogEntry>();
         }
     }
 }

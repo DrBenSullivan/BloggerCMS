@@ -5,9 +5,9 @@ namespace BloggerCMS.Domain.ViewModels
 {
     public class NewBlogViewModel
     {
-        #region Properties
-        // List to display accounts to assign blog to.
-        public List<Account> Accounts { get; set; } = [];
+		#region Properties
+		// List to display accounts to assign blog to.
+		public IEnumerable<Account> Accounts { get; set; } = [];
 
         // Data collection
         [Required]
@@ -23,7 +23,7 @@ namespace BloggerCMS.Domain.ViewModels
         #region Constructors
         public NewBlogViewModel() { }
 
-        public NewBlogViewModel(List<Account> accounts)
+        public NewBlogViewModel(IEnumerable<Account> accounts)
         {
             Accounts = accounts;
 

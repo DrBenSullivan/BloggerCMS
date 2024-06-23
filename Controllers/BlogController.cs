@@ -23,7 +23,9 @@ namespace BloggerCMS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            Dictionary<Account, List<Blog>> accountBlogsDictionary = await _blogService.FetchBlogsAsync();
+            var accountBlogsDictionary = await _blogService
+                .FetchBlogsAsync()
+                .ConfigureAwait(false);
             return View(accountBlogsDictionary);
         }
 

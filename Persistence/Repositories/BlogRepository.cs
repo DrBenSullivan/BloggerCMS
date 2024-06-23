@@ -15,22 +15,24 @@ namespace BloggerCMS.Persistence.Repositories
         public BlogRepository(ApplicationDbContext context) => _context = context;
         #endregion
 
-        public async Task<List<Account>> GetAccountsAsync()
+        public async Task<IEnumerable<Account>> GetAccountsAsync()
         {
             return await _context.Accounts
                 .ToListAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task<Dictionary<Account, List<Blog>>> GetBlogsAsync()
-        {
-            return await _context.Blogs
-                .GroupBy(b => b.Author)
-                .ToDictionaryAsync(g => g.Key, g => g.ToList())
-                .ConfigureAwait(false);
-        }
+		public async Task<Dictionary<Account, IEnumerable<Blog>>> GetBlogsAsync()
+		{
+			var groupedBlogs = await _context.Blogs
+				.GroupBy(b => b.Author)
+				.ToListAsync()
+				.ConfigureAwait(false);
 
-        public async Task<Blog> GetByIdAsync(int id)
+			return groupedBlogs.ToDictionary(g => g.Key, g => g.AsEnumerable());
+		}
+
+		public async Task<Blog> GetByIdAsync(int id)
         {
             var blog = await _context.Blogs
                 .Include(b => b.BlogEntries)

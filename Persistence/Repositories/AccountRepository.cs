@@ -41,7 +41,6 @@ namespace BloggerCMS.Persistence.Repositories
 
         public async Task AddAsync(Account account)
         {
-            Console.WriteLine("Account repository attempting to add newAccount");
             await _context.Accounts
                 .AddAsync(account)
                 .ConfigureAwait(false);

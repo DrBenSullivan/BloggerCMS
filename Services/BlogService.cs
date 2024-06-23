@@ -9,20 +9,25 @@ namespace BloggerCMS.Services
     {
         #region Private Properties
         private readonly IBlogRepository _blogRepository;
+        private readonly IAccountService _accountService;
         #endregion
 
         #region Constructors
-        public BlogService(IBlogRepository blogRepository) => _blogRepository = blogRepository;
+        public BlogService(IBlogRepository blogRepository, IAccountService accountService)
+        {
+            _blogRepository = blogRepository;
+            _accountService = accountService;
+        }
         #endregion
 
-        public async Task<List<Account>> FetchAccountsAsync()
+        public async Task<IEnumerable<Account>> FetchAccountsAsync()
         {
-            return await _blogRepository
-                .GetAccountsAsync()
+            return await _accountService
+                .FetchAccountsAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task<Dictionary<Account, List<Blog>>> FetchBlogsAsync()
+        public async Task<Dictionary<Account, IEnumerable<Blog>>> FetchBlogsAsync()
         {
             return await _blogRepository
                 .GetBlogsAsync()

@@ -4,9 +4,9 @@ namespace BloggerCMS.Domain.Services.Interfaces
 {
     public interface IBlogService
     {
-        Task<Dictionary<Account, List<Blog>>> FetchBlogsAsync();
+        Task<Dictionary<Account, IEnumerable<Blog>>> FetchBlogsAsync();
         Task<Blog> FetchBlogByIdAsync(int id);
-        Task<List<Account>> FetchAccountsAsync();
+        Task<IEnumerable<Account>> FetchAccountsAsync();
         Task<Blog> SaveBlogAsync(Blog blog);
     }
 }

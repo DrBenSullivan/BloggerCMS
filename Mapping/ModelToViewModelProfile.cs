@@ -8,9 +8,9 @@ namespace BloggerCMS.Mapping
     {
         public ModelToViewModelProfile()
         {
-            #region Blog ViewModel Mapping Transform
             CreateMap<Blog, NewBlogViewModel>();
-            #endregion
+            
+            CreateMap<BlogEntry, NewEntryViewModel>();
         }
 
     }
