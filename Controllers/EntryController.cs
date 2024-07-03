@@ -45,9 +45,6 @@ namespace BloggerCMS.Controllers
 
             return View(blogPost);
         }
-
-        [HttpGet("/Entry/View")]
-        public IActionResult View(BlogEntry entry) => View(entry);
         #endregion
 
         #region '/Entry/New'
@@ -76,7 +73,7 @@ namespace BloggerCMS.Controllers
                 var blogEntry = await _entryService
                     .SaveEntryAsync(newEntry)
                     .ConfigureAwait(false);
-                return RedirectToAction("Home", "Index");
+                return RedirectToAction("View", "Entry", new { id = blogEntry.Id });
             }
             catch (Exception ex)
             {
